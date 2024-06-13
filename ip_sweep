@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#Good for /24 subnet
+
+if [ "$1" == "" ]
+do
+echo "You forgot thqe three first octects of the network"
+echo "Syntax: ./ip_sweep 192.168.204"
+
+else
+
+for ip in `seq 1 254`
+do
+ping -c 1 $1.$ip | grep "64 bytes" | cut -d " " -f 4 | tf -d ":" >> ips.txt &
+done
+
+cat ips.txt
+
+fi
